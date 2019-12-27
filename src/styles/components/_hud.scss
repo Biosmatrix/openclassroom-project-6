@@ -1,0 +1,71 @@
+.hud {
+  display: flex;
+  align-items: center;
+  width: $field-width;
+  margin: 0 auto;
+  margin-bottom: $game-container-margin-bottom;
+}
+
+.vs {
+  border-radius: 50%;
+  margin: 0 15px;
+  background: tomato;
+  padding: 10px;
+  width: 100px;
+  height: 50px;
+  line-height: 50px;
+  color: white;
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
+}
+
+.player {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player__img {
+  border-radius: 50%;
+  width: 100px;
+  height: 70px;
+}
+
+.player-1-img {
+  margin-right: 5px;
+}
+
+.player-2-img {
+  margin-left: 5px;
+}
+
+.player__dashboard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weapon {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+
+  .weapon__image{
+    border-radius: 50%;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 50px;
+    height: 40px;
+  }
+}
+
+.player__score {
+  text-align: center;
+  padding-top: 5px;
+  color: #fff;
+}

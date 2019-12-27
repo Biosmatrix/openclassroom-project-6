@@ -1,0 +1,34 @@
+.progress {
+  width: 100%;
+  border-radius: 15px;
+  border: 0 none;
+}
+
+.progress__health {
+  background-color: red;
+}
+
+.progress > .progress__bar {
+  border-radius: 15px;
+}
+
+.progress__bar--health {
+  height: 30px;
+  width: 100%;
+}
+
+.progress__bar--weapon {
+  height: 15px;
+  width: 100%;
+}
+
+.progress__bar--blue {
+  background-color: blue;
+}
+
+.progress__bar--red {
+  background-color: red;
+}
+.progress__bar--green {
+  background-color: green;
+}

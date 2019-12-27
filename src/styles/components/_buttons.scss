@@ -1,0 +1,50 @@
+/* Block */
+.btn {
+  text-decoration: none;
+  background-color: darken($game-container-background, 20%);
+  color: $bright-text-color;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 10px;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 10px 5px;
+}
+
+/* Element */
+.btn__restart {}
+
+/* Element */
+.btn__playing {}
+
+/* Element */
+.btn__retry {}
+
+/* Modifier */
+.btn--big {
+  font-size: 28px;
+  padding: 10px;
+  font-weight: 400;
+}
+
+/* Modifier */
+.btn--blue {
+  border-color: #0074D9;
+  color: white;
+  background-color: #0074D9;
+}
+
+/* Modifier */
+.btn--orange {
+  border-color: #FF4136;
+  color: white;
+  background-color: #FF4136;
+}
+
+/* Modifier */
+.btn--green {
+  border-color: #3D9970;
+  color: white;
+  background-color: #3D9970;
+}
