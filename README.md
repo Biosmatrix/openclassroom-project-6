@@ -1,6 +1,6 @@
 # JS Board Game
 
-A simple service that offers reviews of restaurants around you
+An online game written JavaScript
 
 ### Installation
 
