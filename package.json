@@ -1,14 +1,14 @@
 {
   "name": "p6",
   "version": "1.0.0",
-  "description": "militia app",
+  "description": "Js-Game",
   "scripts": {
     "build": "webpack --colors --config webpack/webpack.config.js --env.env=prod",
     "start": "webpack-dev-server --open --config webpack/webpack.config.js --env.env=dev"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/biosmatrix/militia.git"
+    "url": "https://github.com/biosmatrix/Js-Game.git"
   },
   "keywords": [
     "game",
@@ -18,7 +18,7 @@
   "author": "Amaitari Hezekiah Philip",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/biosmatrix/militia/issues"
+    "url": "https://github.com/biosmatrix/Js-Game/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
