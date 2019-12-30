@@ -11,6 +11,7 @@ export default class Game {
     this.actuator = new Actuator();
     this.inputManager = new InputManager();
     this.directions = 12;
+    this.moves = 3;
     this.obstacles = [
       { name: 'boat' }, { name: 'boat' },
       { name: 'block' }, { name: 'block' },
@@ -189,6 +190,54 @@ export default class Game {
     return map[direction];
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  getUpDirectionVector(direction) {
+    // Vectors representing player movement
+    const map = {
+      0: { x: -1, y: 0 }, // Up
+      1: { x: -2, y: 0 }, // Up
+      2: { x: -3, y: 0 }, // Up
+    };
+
+    return map[direction];
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getRightDirectionVector(direction) {
+    // Vectors representing player movement
+    const map = {
+      0: { x: 0, y: 1 }, // Right
+      1: { x: 0, y: 2 }, // Right
+      2: { x: 0, y: 3 }, // Right
+    };
+
+    return map[direction];
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getDownDirectionVector(direction) {
+    // Vectors representing player movement
+    const map = {
+      0: { x: 1, y: 0 }, // Down
+      1: { x: 2, y: 0 }, // Down
+      2: { x: 3, y: 0 }, // Down
+    };
+
+    return map[direction];
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getLeftDirectionVector(direction) {
+    // Vectors representing player movement
+    const map = {
+      0: { x: 0, y: -1 }, // Left
+      1: { x: 0, y: -2 }, // Left
+      2: { x: 0, y: -3 }, // Left
+    };
+
+    return map[direction];
+  }
+
   // Check if players are close to each other
   checkPlayersTouch() {
     const self = this;
@@ -204,8 +253,8 @@ export default class Game {
         if (cell) {
           if (getCellValue(cell).type === 'Player') {
             // eslint-disable-next-line no-plusplus
-            for (let i = 0; i < this.directions; i++) {
-              const direction = self.getDirectionVector(i);
+            for (let i = 0; i < this.moves; i++) {
+              const direction = self.getUpDirectionVector(i);
               const nextCell = { x: x + direction.x, y: y + direction.y };
 
               const other = self.grid.cellContent(nextCell);
@@ -352,31 +401,138 @@ export default class Game {
     }
   }
 
-  highlightPath(player) {
+  // eslint-disable-next-line class-methods-use-this
+  up(player) {
     const self = this;
-    let currentCell;
-    let nextCell;
-
+    // const currentCell;
+    // const nextCell;
     if (player) {
-    // eslint-disable-next-line no-plusplus
-      for (let direction = 0; direction < self.directions; direction++) {
-        const vector = self.getDirectionVector(direction);
+      // eslint-disable-next-line no-plusplus,no-shadow
+      for (let direction = 0; direction < self.moves; direction++) {
+        const vector = self.getUpDirectionVector(direction);
         const position = self.findNextPositions(player, vector);
+        const currentCell = getCellPosition(position.current);
+        const nextCell = getCellPosition(position.next);
 
-        if (self.grid.withinBounds(position.next)) {
-          currentCell = getCellPosition(position.current);
-          nextCell = getCellPosition(position.next);
+        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
+          // currentCell = getCellPosition(position.current);
+          // nextCell = getCellPosition(position.next);
 
-          // if (nextCell && !nextCell.classList.contains('unavailable')) {
-          //   nextCell.classList.add('highlighted');
-          //   currentCell.classList.add('highlighted');
-          // }
-          if (nextCell) {
+          // const nextNext = self.findNextPositions(position.next, vector);
+          // const nextNextCell = getCellPosition(nextNext.current);
+          // eslint-disable-next-line no-console
+          // console.log(nextNextCell);
+
+          if (nextCell && !nextCell.classList.contains('unavailable')) {
             nextCell.classList.add('highlighted');
             currentCell.classList.add('highlighted');
           }
-        }
+        } else break;
       }
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  right(player) {
+    const self = this;
+    // const currentCell;
+    // const nextCell;
+    if (player) {
+      // eslint-disable-next-line no-plusplus,no-shadow
+      for (let direction = 0; direction < self.moves; direction++) {
+        const vector = self.getRightDirectionVector(direction);
+        const position = self.findNextPositions(player, vector);
+        const currentCell = getCellPosition(position.current);
+        const nextCell = getCellPosition(position.next);
+
+        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
+          // currentCell = getCellPosition(position.current);
+          // nextCell = getCellPosition(position.next);
+
+          // const nextNext = self.findNextPositions(position.next, vector);
+          // const nextNextCell = getCellPosition(nextNext.current);
+          // eslint-disable-next-line no-console
+          // console.log(nextNextCell);
+
+          if (nextCell && !nextCell.classList.contains('unavailable')) {
+            nextCell.classList.add('highlighted');
+            currentCell.classList.add('highlighted');
+          }
+        } else break;
+      }
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  down(player) {
+    const self = this;
+    // const currentCell;
+    // const nextCell;
+    if (player) {
+      // eslint-disable-next-line no-shadow,no-plusplus
+      for (let direction = 0; direction < self.moves; direction++) {
+        const vector = self.getDownDirectionVector(direction);
+        const position = self.findNextPositions(player, vector);
+        const currentCell = getCellPosition(position.current);
+        const nextCell = getCellPosition(position.next);
+
+        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
+          // currentCell = getCellPosition(position.current);
+          // nextCell = getCellPosition(position.next);
+
+          // const nextNext = self.findNextPositions(position.next, vector);
+          // const nextNextCell = getCellPosition(nextNext.current);
+          // eslint-disable-next-line no-console
+          // console.log(nextNextCell);
+
+          if (nextCell && !nextCell.classList.contains('unavailable')) {
+            nextCell.classList.add('highlighted');
+            currentCell.classList.add('highlighted');
+          }
+        } else break;
+      }
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  left(player) {
+    const self = this;
+    // const currentCell;
+    // const nextCell;
+    if (player) {
+      // eslint-disable-next-line no-shadow,no-plusplus
+      for (let direction = 0; direction < self.moves; direction++) {
+        const vector = self.getLeftDirectionVector(direction);
+        const position = self.findNextPositions(player, vector);
+        const currentCell = getCellPosition(position.current);
+        const nextCell = getCellPosition(position.next);
+
+        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
+          // currentCell = getCellPosition(position.current);
+          // nextCell = getCellPosition(position.next);
+
+          // const nextNext = self.findNextPositions(position.next, vector);
+          // const nextNextCell = getCellPosition(nextNext.current);
+          // eslint-disable-next-line no-console
+          // console.log(nextNextCell);
+
+          if (nextCell && !nextCell.classList.contains('unavailable')) {
+            nextCell.classList.add('highlighted');
+            currentCell.classList.add('highlighted');
+          }
+        } else break;
+      }
+    }
+  }
+
+  highlightPath(player) {
+    const self = this;
+
+    if (player) {
+      self.up(player);
+      self.right(player);
+      self.down(player);
+      self.left(player);
     }
   }
 
@@ -522,10 +678,6 @@ export default class Game {
   }
 
   defend() {
-    // eslint-disable-next-line no-console
-    console.log('activePlayer');
-    // eslint-disable-next-line no-console
-    console.log(this.activePlayer);
     const currentPlayer = this.state.players[this.activePlayer];
     const nextPlayer = this.nextPlayer();
 
@@ -533,11 +685,6 @@ export default class Game {
     nextPlayer.fightingOption = 'attack';
 
     this.actuator.updatePanel();
-
-    // eslint-disable-next-line no-console
-    console.log(currentPlayer);
-    // eslint-disable-next-line no-console
-    console.log(nextPlayer);
 
     // update stats
     this.actuate();
