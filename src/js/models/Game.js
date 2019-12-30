@@ -129,7 +129,7 @@ export default class Game {
       }
     });
 
-    if (this.checkPlayersTouch()) {
+    if (this.isPlayersClose()) {
       this.addPlayers();
     }
 
@@ -169,6 +169,19 @@ export default class Game {
   }
 
   // Get the vector representing the chosen direction
+  // eslint-disable-next-line class-methods-use-this
+  checkDirectionVector(direction) {
+    // Vectors representing player movement
+    const map = {
+      0: { x: -1, y: 0 }, // Up
+      1: { x: 0, y: 1 }, // Right
+      2: { x: 1, y: 0 }, // Down
+      3: { x: 0, y: -1 }, // Left
+    };
+
+    return map[direction];
+  }
+
   // eslint-disable-next-line class-methods-use-this
   getDirectionVector(direction) {
     // Vectors representing player movement
@@ -239,7 +252,7 @@ export default class Game {
   }
 
   // Check if players are close to each other
-  checkPlayersTouch() {
+  isPlayersClose() {
     const self = this;
 
     let cell;
@@ -253,8 +266,8 @@ export default class Game {
         if (cell) {
           if (getCellValue(cell).type === 'Player') {
             // eslint-disable-next-line no-plusplus
-            for (let i = 0; i < this.moves; i++) {
-              const direction = self.getUpDirectionVector(i);
+            for (let i = 0; i < 4; i++) {
+              const direction = self.checkDirectionVector(i);
               const nextCell = { x: x + direction.x, y: y + direction.y };
 
               const other = self.grid.cellContent(nextCell);
@@ -321,7 +334,7 @@ export default class Game {
 
     if (moved) {
       // TODO check if players are close to each other to start combat mode
-      if (self.checkPlayersTouch()) {
+      if (self.isPlayersClose()) {
         this.fight = true;
       }
       // switch to next player
@@ -384,7 +397,7 @@ export default class Game {
     }
 
     if (moved) {
-      if (self.checkPlayersTouch()) {
+      if (self.isPlayersClose()) {
         this.activePlayer = 0;
 
         this.fight = true;
