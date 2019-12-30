@@ -630,16 +630,19 @@ export default class Game {
           // gets current player previous weapon and  previous position
           const { previousWeapon, previousPosition } = player;
 
-          // sets the previous weapon to current weapon position
-          const newWeapon = new Weapon(previousPosition, previousWeapon.name, previousWeapon.power);
+          if (previousWeapon.name !== 'fist') {
+            // sets the previous weapon to current weapon position
+            // eslint-disable-next-line max-len
+            const newWeapon = new Weapon(previousPosition, previousWeapon.name, previousWeapon.power);
 
-          // inserts the previous weapon on the grid
-          this.grid.insertWeapon(newWeapon);
+            // inserts the previous weapon on the grid
+            this.grid.insertWeapon(newWeapon);
 
-          // renders previous weapon to the UI
-          this.actuator.addWeapon(newWeapon);
+            // renders previous weapon to the UI
+            this.actuator.addWeapon(newWeapon);
 
-          player.updateWeapon();
+            player.updateWeapon();
+          }
         }
       }
     }

@@ -1,13 +1,12 @@
 export default class Player {
-  constructor(position, name, active) {
+  constructor(position, name, weapon) {
     this.x = position.x;
     this.y = position.y;
     this.type = 'Player';
     this.name = name;
     this.previousPosition = null;
-    this.currentWeapon = null;
+    this.currentWeapon = weapon || { name: 'fist', power: 10 };
     this.previousWeapon = null;
-    this.turn = active || false;
     this.fightingOption = null;
   }
 

@@ -1,8 +1,15 @@
 .defaultWeaponImg {
-  background-image: url("../img/bomb.png");
+  background-image: url("../img/fist.png");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+}
+
+.fist{
+  background-image: url("../img/fist.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: contain;
 }
 
 .sword{
@@ -18,7 +25,6 @@
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: contain;
 }
-
 
 .hook{
   background-image: url("../img/hook.png");
