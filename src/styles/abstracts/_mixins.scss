@@ -69,12 +69,3 @@ $breakpoint argument choices:
   -ms-transform: $args;
   transform: $args;
 }
-
-// Clearfix
-@mixin clearfix {
-  &:after {
-    content: "";
-    display: block;
-    clear: both;
-  }
-}

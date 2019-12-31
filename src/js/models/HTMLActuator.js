@@ -197,7 +197,8 @@ export default class HTMLActuator {
     const message = `${player.name} wins!`;
 
     this.messageContainer.classList.add('game-won');
-    this.messageContainer.getElementsByTagName('p')[0].textContent = message;
+    this.messageContainer.querySelector('.message').textContent = message;
+    this.messageContainer.querySelector('#player').classList.add(`${player.name}`);
   }
 
   fight(start) {
@@ -250,8 +251,8 @@ export default class HTMLActuator {
 
   // eslint-disable-next-line class-methods-use-this
   updatePanel() {
-    $('.player-0-panel').classList.toggle('active');
-    $('.player-1-panel').classList.toggle('active');
+    $('.player-0-panel > .player__0---img').classList.toggle('active');
+    $('.player-1-panel > .player__1---img').classList.toggle('active');
   }
 
   // eslint-disable-next-line class-methods-use-this

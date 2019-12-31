@@ -32,12 +32,16 @@
     z-index: 100;
     text-align: center;
 
-    p {
-      font-size: 60px;
+    .message {
+      font-size: 40px;
       font-weight: bold;
       height: 60px;
       line-height: 60px;
-      margin-top: 222px;
+      margin-top: 150px;
+    }
+
+    .game-message__player {
+      height: 100px;
     }
 
     a {
@@ -152,7 +156,11 @@
 
 .unavailable{}
 
-.active { background-color: #f7f7f7; }
+.active {
+  @include animation(bounce 1s cubic-bezier(0.5, 0.05, 1, 0.5));
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
 
 a.disabled {
   pointer-events: none;
