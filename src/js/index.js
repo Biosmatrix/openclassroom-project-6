@@ -1,7 +1,7 @@
 import '../styles/main.scss';
-import Game from './models/Game';
-import HTMLActuator from './models/HTMLActuator';
-import Input from './models/Input';
+import Game from './Game';
+import HTMLActuator from './HTMLActuator';
+import Input from './Input';
 // import Input from './models/Input';
 // import HTMLActuator from './models/HTMLActuator';
 // Wait till the browser is ready to render the game (avoids glitches)
