@@ -6,13 +6,4 @@ export default class Weapon {
     this.name = name;
     this.power = power || null;
   }
-
-  serialize() {
-    return {
-      position: {
-        x: this.x,
-        y: this.y,
-      },
-    };
-  }
 }

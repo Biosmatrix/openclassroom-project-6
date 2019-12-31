@@ -32,7 +32,6 @@ export default class Game {
     ];
 
     this.inputManager.on('movePlayer', this.move.bind(this));
-    this.inputManager.on('moveKeyboard', this.moveKeyboard.bind(this));
     this.inputManager.on('restart', this.restart.bind(this));
     this.inputManager.on('fight', this.fight.bind(this));
     this.inputManager.on('defend', this.defend.bind(this));
@@ -149,23 +148,6 @@ export default class Game {
       currentPlayer: this.state.players[this.activePlayer],
       terminated: this.isGameTerminated(),
     });
-  }
-
-  // get all players
-  getPlayers() {
-    const players = [];
-    // eslint-disable-next-line consistent-return
-    this.grid.eachCell((x, y, cell) => {
-      if (cell) {
-        if (getCellValue(cell).type === 'Player') {
-          players.push(getCellValue(cell));
-        }
-      }
-    });
-    if (players && players[0].name !== 'PlayerOne') {
-      players.reverse();
-    }
-    return players;
   }
 
   // Get the vector representing the chosen direction
@@ -293,57 +275,6 @@ export default class Game {
     }
   }
 
-  // Move player on the grid in the specified direction
-  // eslint-disable-next-line class-methods-use-this
-  moveKeyboard(direction) {
-    const self = this;
-
-    // gets active player
-    const player = this.state.players[this.activePlayer];
-
-    let moved = false;
-
-    if (player) {
-      // 0: up, 1: right, 2: down, 3: left
-      const vector = self.getDirectionVector(direction);
-
-      // get the cells positions around active player  // 0: up, 1: right, 2: down, 3: left
-      const positions = self.findNextPositions(player, vector);
-
-      // checks if the nextCell is available
-      if (self.grid.cellAvailable(positions.next)) {
-        // update active player current position
-        player.savePosition();
-
-        // change active player position on the grid
-        self.movePlayer(player, positions.next);
-
-        // renders player new position to the UI
-        self.actuator.movePlayer(player);
-
-        // The player moved from its current cell!
-        moved = true;
-
-        // remove highlighted path from active player
-        self.removeHighlightedPath(player);
-
-        // update player in state object
-        self.state.players[self.activePlayer] = player;
-      }
-    }
-
-    if (moved) {
-      // TODO check if players are close to each other to start combat mode
-      if (self.isPlayersClose()) {
-        this.fight = true;
-      }
-      // switch to next player
-      self.highlightNextPlayer();
-      // update stats
-      self.actuate();
-    }
-  }
-
   // eslint-disable-next-line class-methods-use-this
   move(position) {
     const self = this;
@@ -388,7 +319,6 @@ export default class Game {
       // remove highlighted path from active player
       self.removeHighlightedPath(player);
 
-      // TODO check if player landed on a weapon
       // renders player weapon to the UI
       self.updatePlayerWeapon(player);
 
@@ -417,8 +347,6 @@ export default class Game {
   // eslint-disable-next-line class-methods-use-this
   up(player) {
     const self = this;
-    // const currentCell;
-    // const nextCell;
     if (player) {
       // eslint-disable-next-line no-plusplus,no-shadow
       for (let direction = 0; direction < self.moves; direction++) {
@@ -428,14 +356,6 @@ export default class Game {
         const nextCell = getCellPosition(position.next);
 
         if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
-          // currentCell = getCellPosition(position.current);
-          // nextCell = getCellPosition(position.next);
-
-          // const nextNext = self.findNextPositions(position.next, vector);
-          // const nextNextCell = getCellPosition(nextNext.current);
-          // eslint-disable-next-line no-console
-          // console.log(nextNextCell);
-
           if (nextCell && !nextCell.classList.contains('unavailable')) {
             nextCell.classList.add('highlighted');
             currentCell.classList.add('highlighted');
@@ -448,8 +368,7 @@ export default class Game {
   // eslint-disable-next-line class-methods-use-this
   right(player) {
     const self = this;
-    // const currentCell;
-    // const nextCell;
+
     if (player) {
       // eslint-disable-next-line no-plusplus,no-shadow
       for (let direction = 0; direction < self.moves; direction++) {
@@ -459,14 +378,6 @@ export default class Game {
         const nextCell = getCellPosition(position.next);
 
         if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
-          // currentCell = getCellPosition(position.current);
-          // nextCell = getCellPosition(position.next);
-
-          // const nextNext = self.findNextPositions(position.next, vector);
-          // const nextNextCell = getCellPosition(nextNext.current);
-          // eslint-disable-next-line no-console
-          // console.log(nextNextCell);
-
           if (nextCell && !nextCell.classList.contains('unavailable')) {
             nextCell.classList.add('highlighted');
             currentCell.classList.add('highlighted');
@@ -479,8 +390,6 @@ export default class Game {
   // eslint-disable-next-line class-methods-use-this
   down(player) {
     const self = this;
-    // const currentCell;
-    // const nextCell;
     if (player) {
       // eslint-disable-next-line no-shadow,no-plusplus
       for (let direction = 0; direction < self.moves; direction++) {
@@ -490,14 +399,6 @@ export default class Game {
         const nextCell = getCellPosition(position.next);
 
         if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
-          // currentCell = getCellPosition(position.current);
-          // nextCell = getCellPosition(position.next);
-
-          // const nextNext = self.findNextPositions(position.next, vector);
-          // const nextNextCell = getCellPosition(nextNext.current);
-          // eslint-disable-next-line no-console
-          // console.log(nextNextCell);
-
           if (nextCell && !nextCell.classList.contains('unavailable')) {
             nextCell.classList.add('highlighted');
             currentCell.classList.add('highlighted');
@@ -510,8 +411,7 @@ export default class Game {
   // eslint-disable-next-line class-methods-use-this
   left(player) {
     const self = this;
-    // const currentCell;
-    // const nextCell;
+
     if (player) {
       // eslint-disable-next-line no-shadow,no-plusplus
       for (let direction = 0; direction < self.moves; direction++) {
@@ -521,14 +421,6 @@ export default class Game {
         const nextCell = getCellPosition(position.next);
 
         if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
-          // currentCell = getCellPosition(position.current);
-          // nextCell = getCellPosition(position.next);
-
-          // const nextNext = self.findNextPositions(position.next, vector);
-          // const nextNextCell = getCellPosition(nextNext.current);
-          // eslint-disable-next-line no-console
-          // console.log(nextNextCell);
-
           if (nextCell && !nextCell.classList.contains('unavailable')) {
             nextCell.classList.add('highlighted');
             currentCell.classList.add('highlighted');

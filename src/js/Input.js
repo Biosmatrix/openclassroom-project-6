@@ -21,40 +21,6 @@ export default class Input {
   }
 
   listen() {
-    const self = this;
-
-    const map = {
-      38: 0, // Up
-      39: 1, // Right
-      40: 2, // Down
-      37: 3, // Left
-      75: 0, // Vim up
-      76: 1, // Vim right
-      74: 2, // Vim down
-      72: 3, // Vim left
-      87: 0, // W
-      68: 1, // D
-      83: 2, // S
-      65: 3, // A
-    };
-
-    // Respond to direction keys
-    document.addEventListener('keydown', (event) => {
-      const modifiers = event.altKey || event.ctrlKey || event.metaKey
-        || event.shiftKey;
-
-      const key = event.keyCode || event.which;
-
-      const mapped = map[key];
-
-      if (!modifiers) {
-        if (mapped !== undefined) {
-          event.preventDefault();
-          self.emit('moveKeyboard', mapped);
-        }
-      }
-    });
-
     // Respond to button presses
     this.bindButtonPress('.btn__retry', this.restart);
     this.bindButtonPress('.btn__fight', this.fight);
@@ -65,11 +31,6 @@ export default class Input {
   restart(event) {
     event.preventDefault();
     this.emit('restart');
-  }
-
-  keepPlaying(event) {
-    event.preventDefault();
-    this.emit('keepPlaying');
   }
 
   fight(event) {

@@ -26,13 +26,4 @@ export default class Player {
     this.x = position.x;
     this.y = position.y;
   }
-
-  serialize() {
-    return {
-      position: {
-        x: this.x,
-        y: this.y,
-      },
-    };
-  }
 }

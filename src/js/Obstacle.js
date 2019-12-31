@@ -5,13 +5,4 @@ export default class Obstacle {
     this.type = 'Obstacle';
     this.name = name;
   }
-
-  serialize() {
-    return {
-      position: {
-        x: this.x,
-        y: this.y,
-      },
-    };
-  }
 }

@@ -46,8 +46,8 @@ export default class HTMLActuator {
           if (cell.type === 'Obstacle') {
             if (position) {
               position.classList.remove('available');
-              // position.classList.add('obstacle');
               position.classList.add('unavailable');
+              position.classList.add('obstacle');
               position.classList.add(`${cell.name}`);
             }
           }
@@ -104,38 +104,6 @@ export default class HTMLActuator {
       });
     });
   }
-
-  // eslint-disable-next-line class-methods-use-this
-  // movePlayer(grid) {
-  //   grid.cells.forEach((row) => {
-  //     row.forEach((column) => {
-  //       if (column) {
-  //         if (column.type === 'Player') {
-  //           // if (column.turn === true) {
-  //           const cell = getCellValue(column);
-  //           const position = getCellPosition(cell.position);
-  //           let previousPosition;
-  //
-  //           // eslint-disable-next-line max-len
-  // eslint-disable-next-line max-len
-  //           if (column.previousPosition) previousPosition = getCellPosition(column.previousPosition);
-  //
-  //           if (previousPosition.classList.contains(`${cell.name}`)) {
-  //             previousPosition.classList.remove(`${cell.name}`);
-  //             previousPosition.classList.add('available');
-  //           }
-  //
-  // eslint-disable-next-line max-len
-  //           if (position.classList.contains('available') || position.classList.contains('weapon')) {
-  //             position.classList.remove('available');
-  //             position.classList.add(`${cell.name}`);
-  //           }
-  //           // }
-  //         }
-  //       }
-  //     });
-  //   });
-  // }
 
   // eslint-disable-next-line class-methods-use-this
   movePlayer(player) {
