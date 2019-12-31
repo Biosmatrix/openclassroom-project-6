@@ -1,10 +1,3 @@
-.container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
 .game-container {
   margin: 0 auto;
   position: relative;
@@ -78,14 +71,6 @@
     z-index: 100;
     text-align: center;
 
-    p {
-      font-size: 60px;
-      font-weight: bold;
-      height: 60px;
-      line-height: 60px;
-      margin-top: 222px;
-    }
-
     a {
       &.btn__playing {
         display: none;
@@ -96,6 +81,11 @@
     @include animation-fill-mode(both);
 
     &.fight-start {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 15px;
+      padding-left: 15px;
       background: rgba($tile-gold-color, .5);
       color: $bright-text-color;
 
@@ -104,66 +94,8 @@
       }
     }
 
-    &.fight-start {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-right: 15px;
-      padding-left: 15px;
-    }
-
     &.fight-ends {
       display: none;
     }
   }
 }
-
-.row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.grid {
-  position: absolute;
-  z-index: 1;
-}
-
-.grid__row {
-  display: flex;
-  margin-bottom: $grid-spacing;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.grid__cell {
-  width: $tile-size;
-  height: $tile-size;
-  margin-right: $grid-spacing;
-  border-radius: $tile-border-radius;
-  background-color: rgba($tile-color, .35);
-
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-.highlighted {
-  background-color: #eee1c9 !important;
-}
-
-.unavailable{}
-
-.active {
-  @include animation(bounce 1s cubic-bezier(0.5, 0.05, 1, 0.5));
-  animation-direction: alternate;
-  animation-iteration-count: infinite;
-}
-
-a.disabled {
-  pointer-events: none;
-  cursor: default;
-}
-

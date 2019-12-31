@@ -194,7 +194,7 @@ export default class HTMLActuator {
   }
 
   message(player) {
-    const message = `${player.name} wins!`;
+    const message = player.name === 'playerOne' ? 'Player 1 wins!' : 'Player 2 wins!';
 
     this.messageContainer.classList.add('game-won');
     this.messageContainer.querySelector('.message').textContent = message;
@@ -242,9 +242,9 @@ export default class HTMLActuator {
 
   // disable fighting buttons
   // eslint-disable-next-line class-methods-use-this
-  disableFight(activePlayer) {
-    const attack = $(`#player-${activePlayer}-attack`);
-    const defend = $(`#player-${activePlayer}-defend`);
+  disableFight(nextPlayer) {
+    const attack = $(`#player-${nextPlayer}-attack`);
+    const defend = $(`#player-${nextPlayer}-defend`);
     attack.classList.add('disabled');
     defend.classList.add('disabled');
   }

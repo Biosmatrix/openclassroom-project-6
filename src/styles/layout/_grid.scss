@@ -1,0 +1,43 @@
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  position: absolute;
+  z-index: 1;
+}
+
+.grid__row {
+  display: flex;
+  margin-bottom: $grid-spacing;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.grid__cell {
+  width: $tile-size;
+  height: $tile-size;
+  margin-right: $grid-spacing;
+  border-radius: $tile-border-radius;
+  background-color: rgba($tile-color, .35);
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+}

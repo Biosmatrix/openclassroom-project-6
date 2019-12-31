@@ -48,3 +48,9 @@
   color: white;
   background-color: #3D9970;
 }
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  background-color: lighten($game-container-background, 10%) !important;
+}

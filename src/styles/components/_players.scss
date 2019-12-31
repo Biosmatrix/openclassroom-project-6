@@ -11,3 +11,13 @@
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: contain;
 }
+
+.highlighted {
+  background-color: #eee1c9 !important;
+}
+
+.active {
+  @include animation(bounce 1s cubic-bezier(0.5, 0.05, 1, 0.5));
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+}
