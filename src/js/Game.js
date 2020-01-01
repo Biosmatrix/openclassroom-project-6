@@ -14,7 +14,6 @@ export default class Game {
     this.moves = 3;
     this.obstacles = [
       { name: 'boat' }, { name: 'boat' },
-      { name: 'block' }, { name: 'block' },
       { name: 'ship' }, { name: 'ship' },
       { name: 'wheel' }, { name: 'wheel' },
       { name: 'drum' }, { name: 'drum' },

@@ -32,6 +32,10 @@
   border-radius: $tile-border-radius;
   background-color: rgba($tile-color, .35);
 
+  &.obstacle {
+    background-color: rgba($tile-color, .75);
+  }
+
   &:last-child {
     margin-right: 0;
   }
