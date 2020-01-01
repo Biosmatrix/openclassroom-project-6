@@ -77,8 +77,9 @@ export default class Game {
   }
 
   // Restart the game
+  // eslint-disable-next-line class-methods-use-this
   restart() {
-    this.setup();
+    document.location.reload();
   }
 
   // Set up the Obstacles to start the game with
