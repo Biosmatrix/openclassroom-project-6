@@ -195,6 +195,7 @@ export default class HTMLActuator {
       if (playerWeaponImg.classList.contains(playerPreviousWeapon)) {
         playerWeaponImg.classList.remove(playerPreviousWeapon);
         playerWeaponImg.classList.add(playerWeapon);
+        $(`#player__${activePlayer}--power`).textContent = `${player.currentWeapon.power}`;
       }
     }
   }

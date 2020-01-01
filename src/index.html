@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>P6 JSGame</title>
+  <title>P6 | JavaScript Board Game</title>
 </head>
 <body>
 <div class="container">
@@ -13,14 +13,16 @@
       <div class="player__img playerOne"></div>
       <div class="player__dashboard">
         <div class="progress progress__health">
-          <div class="progress__bar progress__bar--blue  progress__bar--health" id="player__0--health">
+          <div class="progress__bar progress__bar--green  progress__bar--health" id="player__0--health">
             <div class="player__score" id="player__0--score">100</div>
           </div>
         </div>
         <div class="weapon">
           <div class="weapon__image defaultWeaponImg"></div>
           <div class="progress">
-            <div class="progress--bar progress__bar--green progress__bar--weapon"></div>
+            <div class="progress--bar progress__bar--blue progress__bar--weapon" id="player__0--weapon">
+              <div class="player__weapon">Damage Power: <span id="player__0--power">10</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -29,13 +31,15 @@
     <div class="player player__1">
       <div class="player__dashboard">
         <div class="progress progress__health">
-          <div class="progress__bar progress__bar--blue progress__bar--health" id="player__1--health">
+          <div class="progress__bar progress__bar--green progress__bar--health" id="player__1--health">
             <div class="player__score" id="player__1--score">100</div>
           </div>
         </div>
         <div class="weapon">
           <div class="progress">
-            <div class="progress--bar progress__bar--green progress__bar--weapon"></div>
+            <div class="progress--bar progress__bar--blue progress__bar--weapon" id="player__1--weapon">
+              <div class="player__weapon">Damage Power: <span id="player__1--power">10</span></div>
+            </div>
           </div>
           <div class="weapon__image defaultWeaponImg"></div>
         </div>
@@ -43,10 +47,6 @@
       <div class="player__img player__1---img playerTwo"></div>
     </div>
   </div>
-
-<!--  <div class="row">-->
-<!--    <a class="btn btn__restart">New Game</a>-->
-<!--  </div>-->
 
   <div class="game-container">
     <div class="game-message">
