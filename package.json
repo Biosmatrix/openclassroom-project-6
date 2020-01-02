@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Js-Game",
   "scripts": {
-    "build": "webpack --colors --config webpack/webpack.config.js --env.env=prod",
-    "start": "webpack-dev-server --open --config webpack/webpack.config.js --env.env=dev"
+    "build": "cross-env NODE_ENV=production webpack --colors --config webpack/webpack.config.js --env.env=prod",
+    "start": "webpack-dev-server --progress --open --config webpack/webpack.config.js --env.env=dev"
   },
   "repository": {
     "type": "git",
@@ -25,31 +25,32 @@
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
+    "autoprefixer": "^9.7.3",
     "babel-loader": "^8.0.4",
-    "css-loader": "^1.0.0",
-    "eslint": "^5.7.0",
-    "eslint-loader": "^2.1.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
     "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^6.0.3",
+    "css-loader": "^1.0.0",
+    "cssnano": "^4.1.10",
+    "dotenv-webpack": "^1.7.0",
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.14.0",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^4.0.0-beta.2",
     "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.9.4",
+    "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "url-loader": "^3.0.0",
     "webpack": "^4.21.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9",
-    "webpack-merge": "^4.1.4",
-    "dotenv-webpack": "^1.7.0"
+    "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
-    "axios": "^0.18.0",
-    "jquery": "^3.4.1",
-    "uniqid": "^4.1.1",
-    "bootstrap": "^4.2.1",
-    "popper.js": "^1.14.4"
+    "@babel/polyfill": "^7.0.0"
   }
 }
