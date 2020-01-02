@@ -43,12 +43,12 @@ export default class HTMLActuator {
           const cell = getCellValue(column);
           const position = getCellPosition(cell.position);
 
-          if (cell.type === 'Obstacle') {
+          if (cell.type === 'obstacle') {
             if (position) {
               position.classList.remove('available');
               position.classList.add('unavailable');
-              position.classList.add('obstacle');
               position.classList.add(`${cell.name}`);
+              position.classList.add(`${cell.type}`);
             }
           }
         }
@@ -64,11 +64,11 @@ export default class HTMLActuator {
           const cell = getCellValue(column);
           const position = getCellPosition(cell.position);
 
-          if (cell.type === 'Weapon') {
+          if (cell.type === 'weapon') {
             if (position) {
               position.classList.remove('available');
-              position.classList.add('weapon');
               position.classList.add(`${cell.name}`);
+              position.classList.add(`${cell.type}`);
             }
           }
         }
@@ -93,12 +93,13 @@ export default class HTMLActuator {
   addPlayers(grid) {
     grid.cells.forEach((row) => {
       row.forEach((column) => {
-        if (column && column.type === 'Player') {
+        if (column && column.type === 'player') {
           const cell = getCellValue(column);
           const position = getCellPosition(cell.position);
           if (position.classList.contains('available')) {
             position.classList.remove('available');
             position.classList.add(`${cell.name}`);
+            position.classList.add(`${cell.type}`);
           }
         }
       });
@@ -123,6 +124,7 @@ export default class HTMLActuator {
       if (position.classList.contains('available')) {
         position.classList.remove('available');
         position.classList.add(`${cell.name}`);
+        position.classList.add(`${cell.type}`);
       }
     }
   }

@@ -15,7 +15,7 @@ export const getCellValue = cell => ({
     x: cell.x,
     y: cell.y,
   },
-  type: cell.type,
+  type: cell.type.toLowerCase(),
   name: cell.name,
   turn: cell.turn,
 });

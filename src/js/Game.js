@@ -246,7 +246,7 @@ export default class Game {
         cell = this.grid.cellContent({ x, y });
 
         if (cell) {
-          if (getCellValue(cell).type === 'Player') {
+          if (getCellValue(cell).type === 'player') {
             // eslint-disable-next-line no-plusplus
             for (let i = 0; i < 4; i++) {
               const direction = self.checkDirectionVector(i);
@@ -254,7 +254,7 @@ export default class Game {
 
               const other = self.grid.cellContent(nextCell);
 
-              if (other && getCellValue(other).type === 'Player') {
+              if (other && getCellValue(other).type === 'player') {
                 return true;
               }
             }
@@ -288,7 +288,7 @@ export default class Game {
     if (player) {
       const next = self.grid.cellContent(position);
 
-      if (next && next.type === 'Weapon') {
+      if (next && next.type === 'weapon') {
         // check if player has any weapon
         if (player.currentWeapon) {
           // save current weapon
@@ -355,7 +355,7 @@ export default class Game {
         const currentCell = getCellPosition(position.current);
         const nextCell = getCellPosition(position.next);
 
-        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
+        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable') && !nextCell.classList.contains('player')) {
           if (nextCell && !nextCell.classList.contains('unavailable')) {
             nextCell.classList.add('highlighted');
             currentCell.classList.add('highlighted');
@@ -377,7 +377,7 @@ export default class Game {
         const currentCell = getCellPosition(position.current);
         const nextCell = getCellPosition(position.next);
 
-        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
+        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable') && !nextCell.classList.contains('player')) {
           if (nextCell && !nextCell.classList.contains('unavailable')) {
             nextCell.classList.add('highlighted');
             currentCell.classList.add('highlighted');
@@ -398,7 +398,7 @@ export default class Game {
         const currentCell = getCellPosition(position.current);
         const nextCell = getCellPosition(position.next);
 
-        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
+        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable') && !nextCell.classList.contains('player')) {
           if (nextCell && !nextCell.classList.contains('unavailable')) {
             nextCell.classList.add('highlighted');
             currentCell.classList.add('highlighted');
@@ -420,7 +420,7 @@ export default class Game {
         const currentCell = getCellPosition(position.current);
         const nextCell = getCellPosition(position.next);
 
-        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable')) {
+        if (self.grid.withinBounds(position.next) && !nextCell.classList.contains('unavailable') && !nextCell.classList.contains('player')) {
           if (nextCell && !nextCell.classList.contains('unavailable')) {
             nextCell.classList.add('highlighted');
             currentCell.classList.add('highlighted');
@@ -461,6 +461,7 @@ export default class Game {
 
         if (previousCell && nextCell) {
           previousCell.classList.remove('highlighted');
+          previousCell.classList.remove('player');
           nextCell.classList.remove('highlighted');
         }
       }
