@@ -8,8 +8,8 @@ module.exports = {
   stats: 'errors-only',
   bail: true,
   output: {
-    filename: 'js/[name].[chunkhash:8].js',
-    chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
+    filename: 'js/[name].[chunkHash].js',
+    chunkFilename: 'js/[name].[chunkHash].chunk.js',
   },
   plugins: [
     new Dotenv({
@@ -17,7 +17,7 @@ module.exports = {
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[chunkhash:8].css',
+      filename: '[name].[contentHash].css',
     }),
   ],
   module: {
@@ -28,11 +28,27 @@ module.exports = {
         use: 'babel-loader',
       },
       {
-        test: /\.s?css/i,
+        // Apply rule for .sass, .scss or .css files
+        test: /\.(sa|sc|c)ss$/,
+        // use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
         use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader',
+          {
+            // After all CSS loaders we use plugin to do his work.
+            // It gets all transformed CSS and extracts it into separate
+            // single bundled file
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            // Then we apply postCSS fixes like autoprefixer and minifying
+            loader: 'postcss-loader',
+          },
+          {
+            // First we transform SASS to standard CSS
+            loader: 'sass-loader',
+          },
         ],
       },
     ],
