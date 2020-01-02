@@ -20,3 +20,4 @@ yarn.lock
 # Environment Variables
 .env.development
 .env.production
+/src/public/.gitkeep
