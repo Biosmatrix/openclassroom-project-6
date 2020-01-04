@@ -1,20 +1,25 @@
 // eslint-disable-next-line no-extend-native,func-names
-Function.prototype.bind = Function.prototype.bind || function (target) {
-  const self = this;
+Function.prototype.bind =
+  Function.prototype.bind ||
   // eslint-disable-next-line func-names
-  return function (args) {
-    if (!(args instanceof Array)) {
-      // eslint-disable-next-line no-param-reassign
-      args = [args];
-    }
-    self.apply(target, args);
+  function(target) {
+    const self = this;
+    // eslint-disable-next-line func-names
+    return function(args) {
+      if (!(args instanceof Array)) {
+        // eslint-disable-next-line no-param-reassign
+        args = [args];
+      }
+      self.apply(target, args);
+    };
   };
-};
 
 // eslint-disable-next-line func-names
-(function () {
-  if (typeof window.Element === 'undefined'
-    || 'classList' in document.documentElement) {
+(function() {
+  if (
+    typeof window.Element === 'undefined' ||
+    'classList' in document.documentElement
+  ) {
     return;
   }
 
@@ -27,7 +32,9 @@ Function.prototype.bind = Function.prototype.bind || function (target) {
     this.el = el;
     // The className needs to be trimmed and split on whitespace
     // to retrieve a list of classes.
-    const classes = el.className.replace(/^\s+|\s+$/g, '').split(/\s+/);
+    const classes = el.className
+      .replace(/^\s+|\s+$/g, '')
+      .split(/\s+/);
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < classes.length; i++) {
       push.call(this, classes[i]);
@@ -44,9 +51,9 @@ Function.prototype.bind = Function.prototype.bind || function (target) {
       // eslint-disable-next-line eqeqeq
       return this.el.className.indexOf(token) !== -1;
     },
-    item(index) {
-      return this[index] || null;
-    },
+    // item(index) {
+    //   return this[index] || null;
+    // },
     remove(token) {
       let i;
       if (!this.contains(token)) return;
@@ -68,7 +75,7 @@ Function.prototype.bind = Function.prototype.bind || function (target) {
       }
 
       return this.contains(token);
-    },
+    }
   };
 
   window.DOMTokenList = DOMTokenList;
@@ -76,7 +83,7 @@ Function.prototype.bind = Function.prototype.bind || function (target) {
   function defineElementGetter(obj, prop, getter) {
     if (Object.defineProperty) {
       Object.defineProperty(obj, prop, {
-        get: getter,
+        get: getter
       });
     } else {
       // eslint-disable-next-line no-restricted-properties,no-underscore-dangle
@@ -85,32 +92,37 @@ Function.prototype.bind = Function.prototype.bind || function (target) {
   }
 
   // eslint-disable-next-line func-names
-  defineElementGetter(HTMLElement.prototype, 'classList', function () {
+  defineElementGetter(HTMLElement.prototype, 'classList', function() {
     return new DOMTokenList(this);
   });
-}());
-
+})();
 
 // eslint-disable-next-line func-names
-(function () {
+(function() {
   let lastTime = 0;
   const vendors = ['webkit', 'moz'];
   // eslint-disable-next-line no-plusplus
-  for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-    window.requestAnimationFrame = window[`${vendors[x]}RequestAnimationFrame`];
-    window.cancelAnimationFrame = window[`${vendors[x]}CancelAnimationFrame`]
-      || window[`${vendors[x]}CancelRequestAnimationFrame`];
+  for (
+    let x = 0;
+    x < vendors.length && !window.requestAnimationFrame;
+    // eslint-disable-next-line no-plusplus
+    ++x
+  ) {
+    window.requestAnimationFrame =
+      window[`${vendors[x]}RequestAnimationFrame`];
+    window.cancelAnimationFrame =
+      window[`${vendors[x]}CancelAnimationFrame`] ||
+      window[`${vendors[x]}CancelRequestAnimationFrame`];
   }
 
   if (!window.requestAnimationFrame) {
     // eslint-disable-next-line func-names
-    window.requestAnimationFrame = function (callback) {
+    window.requestAnimationFrame = function(callback) {
       const currTime = new Date().getTime();
       const timeToCall = Math.max(0, 16 - (currTime - lastTime));
       const id = window.setTimeout(() => {
         callback(currTime + timeToCall);
-      },
-      timeToCall);
+      }, timeToCall);
       lastTime = currTime + timeToCall;
       return id;
     };
@@ -118,8 +130,8 @@ Function.prototype.bind = Function.prototype.bind || function (target) {
 
   if (!window.cancelAnimationFrame) {
     // eslint-disable-next-line func-names
-    window.cancelAnimationFrame = function (id) {
+    window.cancelAnimationFrame = function(id) {
       clearTimeout(id);
     };
   }
-}());
+})();
