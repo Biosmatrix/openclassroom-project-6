@@ -14,7 +14,7 @@ export default class Input {
   emit(event, data) {
     const callbacks = this.events[event];
     if (callbacks) {
-      callbacks.forEach((callback) => {
+      callbacks.forEach(callback => {
         callback(data);
       });
     }
@@ -47,7 +47,9 @@ export default class Input {
     event.preventDefault();
 
     if (event.target.matches('.highlighted, .highlighted *')) {
-      const { row, col } = event.target.closest('.highlighted').dataset;
+      const { row, col } = event.target.closest(
+        '.highlighted'
+      ).dataset;
 
       const data = { x: parseInt(row, 10), y: parseInt(col, 10) };
 
@@ -57,7 +59,7 @@ export default class Input {
 
   bindButtonPress(selector, fn) {
     const buttons = [...document.querySelectorAll(selector)];
-    buttons.forEach((button) => {
+    buttons.forEach(button => {
       button.addEventListener('click', fn.bind(this));
     });
   }

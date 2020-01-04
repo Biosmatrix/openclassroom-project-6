@@ -1,5 +1,9 @@
 import {
-  appendElementToDOM, createElement, getCellPosition, $, getCellValue,
+  appendElementToDOM,
+  createElement,
+  getCellPosition,
+  $,
+  getCellValue
 } from './Utils';
 
 export default class HTMLActuator {
@@ -9,25 +13,28 @@ export default class HTMLActuator {
     this.fightContainer = $('.game-fight');
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // creates a grid row
   gridRow() {
     const classNames = { boxes: 'grid__row' };
     return createElement('div', classNames);
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // create a grid cell
   gridCell(row, col) {
     const classNames = { box: 'grid__cell', available: 'available' };
-    // eslint-disable-next-line no-dupe-keys
-    const attributes = { id: `cell-${row}${col}`, 'data-row': `${row}`, 'data-col': `${col}` };
+    const attributes = {
+      id: `cell-${row}${col}`,
+      'data-row': `${row}`,
+      'data-col': `${col}`
+    };
     return createElement('div', classNames, attributes);
   }
 
+  // draws the grid on the UI
   drawGrid(grid) {
     // eslint-disable-next-line no-plusplus
     for (let row = 0; row < grid.size; row++) {
       const gridRow = this.gridRow();
-      // eslint-disable-next-line no-plusplus
       for (let col = 0; col < grid.size; col++) {
         appendElementToDOM(this.gridCell(row, col), gridRow);
       }
@@ -35,10 +42,10 @@ export default class HTMLActuator {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // add obstacles on the UI
   addObstacles(grid) {
-    grid.cells.forEach((row) => {
-      row.forEach((column) => {
+    grid.cells.forEach(row => {
+      row.forEach(column => {
         if (column) {
           const cell = getCellValue(column);
           const position = getCellPosition(cell.position);
@@ -56,10 +63,10 @@ export default class HTMLActuator {
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // adds weapons on the UI
   addWeapons(grid) {
-    grid.cells.forEach((row) => {
-      row.forEach((column) => {
+    grid.cells.forEach(row => {
+      row.forEach(column => {
         if (column) {
           const cell = getCellValue(column);
           const position = getCellPosition(cell.position);
@@ -76,7 +83,7 @@ export default class HTMLActuator {
     });
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // add weapon on the UI
   addWeapon(weapon) {
     if (weapon) {
       const position = getCellPosition(weapon);
@@ -89,15 +96,17 @@ export default class HTMLActuator {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // add players on the UI
   addPlayers(grid) {
-    grid.cells.forEach((row) => {
-      row.forEach((column) => {
+    grid.cells.forEach(row => {
+      row.forEach(column => {
         if (column && column.type === 'player') {
           const cell = getCellValue(column);
+
           const position = getCellPosition(cell.position);
           if (position.classList.contains('available')) {
             position.classList.remove('available');
+
             position.classList.add(`${cell.name}`);
             position.classList.add(`${cell.type}`);
           }
@@ -113,8 +122,9 @@ export default class HTMLActuator {
       const position = getCellPosition(player);
       let previousPosition;
 
-      // eslint-disable-next-line max-len
-      if (player.previousPosition) previousPosition = getCellPosition(player.previousPosition);
+      if (player.previousPosition) {
+        previousPosition = getCellPosition(player.previousPosition);
+      }
 
       if (previousPosition.classList.contains(`${cell.name}`)) {
         previousPosition.classList.remove(`${cell.name}`);
@@ -129,10 +139,9 @@ export default class HTMLActuator {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // remove weapon on the UI
   removeWeapon(weapon) {
     if (weapon) {
-      // const cell = getCellValue(weapon);
       const position = getCellPosition(weapon);
 
       if (position.classList.contains('weapon')) {
@@ -143,11 +152,15 @@ export default class HTMLActuator {
     }
   }
 
+  // update stats
   actuate(metadata) {
     const self = this;
 
     window.requestAnimationFrame(() => {
-      self.updatePlayerWeapon(metadata.activePlayer, metadata.currentPlayer);
+      self.updatePlayerWeapon(
+        metadata.activePlayer,
+        metadata.currentPlayer
+      );
 
       if (metadata.fight) {
         self.fight(true); // Fight starts
@@ -163,47 +176,63 @@ export default class HTMLActuator {
     });
   }
 
+  // display game over message
   message(player) {
-    const message = player.name === 'playerOne' ? 'Player 1 wins!' : 'Player 2 wins!';
+    const message =
+      player.name === 'playerOne'
+        ? 'Player 1 wins!'
+        : 'Player 2 wins!';
 
     this.messageContainer.classList.add('game-won');
-    this.messageContainer.querySelector('.message').textContent = message;
-    this.messageContainer.querySelector('#player').classList.add(`${player.name}`);
+    this.messageContainer.querySelector(
+      '.message'
+    ).textContent = message;
+    this.messageContainer
+      .querySelector('#player')
+      .classList.add(`${player.name}`);
   }
 
+  // enable combat mode
   fight(start) {
     const type = start ? 'fight-start' : 'fight-ends';
 
     this.fightContainer.classList.add(type);
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // update player score
   updateScore(player, score) {
     $(`#player__${player}--score`).textContent = `${score}%`;
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // update player health
   updateHealth(player, score) {
     $(`#player__${player}--health`).style.width = `${score}%`;
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // update player weapon
   updatePlayerWeapon(activePlayer, player) {
-    const playerWeaponImg = $(`.player__${activePlayer} .weapon__image`);
-    const playerWeapon = player.currentWeapon ? player.currentWeapon.name : 'defaultWeaponImg';
-    const playerPreviousWeapon = player.previousWeapon ? player.previousWeapon.name : 'defaultWeaponImg';
+    const playerWeaponImg = $(
+      `.player__${activePlayer} .weapon__image`
+    );
+    const playerWeapon = player.currentWeapon
+      ? player.currentWeapon.name
+      : 'defaultWeaponImg';
+    const playerPreviousWeapon = player.previousWeapon
+      ? player.previousWeapon.name
+      : 'defaultWeaponImg';
 
     if (playerWeaponImg) {
       if (playerWeaponImg.classList.contains(playerPreviousWeapon)) {
         playerWeaponImg.classList.remove(playerPreviousWeapon);
         playerWeaponImg.classList.add(playerWeapon);
-        $(`#player__${activePlayer}--power`).textContent = `${player.currentWeapon.power}`;
+        $(
+          `#player__${activePlayer}--power`
+        ).textContent = `${player.currentWeapon.power}`;
       }
     }
   }
 
   // enable fighting buttons
-  // eslint-disable-next-line class-methods-use-this
   enableFight(activePlayer) {
     const attack = $(`#player-${activePlayer}-attack`);
     const defend = $(`#player-${activePlayer}-defend`);
@@ -212,7 +241,6 @@ export default class HTMLActuator {
   }
 
   // disable fighting buttons
-  // eslint-disable-next-line class-methods-use-this
   disableFight(nextPlayer) {
     const attack = $(`#player-${nextPlayer}-attack`);
     const defend = $(`#player-${nextPlayer}-defend`);
@@ -220,36 +248,13 @@ export default class HTMLActuator {
     defend.classList.add('disabled');
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  // update player panel
   updatePanel() {
-    $('.player-0-panel > .player__0---img').classList.toggle('active');
-    $('.player-1-panel > .player__1---img').classList.toggle('active');
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  clearContainer(container) {
-    while (container.firstChild) {
-      container.removeChild(container.firstChild);
-    }
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  setClasses(element, classes) {
-    element.setAttribute('class', classes.join(' '));
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  setDataset(element, key, value) {
-    element.setAttribute(`data-${key}`, `${value}`);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  getCellPositionClass(position) {
-    return `cell-${position.x}${position.y}`;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  createElement(tag) {
-    return document.createElement(tag);
+    $('.player-0-panel > .player__0---img').classList.toggle(
+      'active'
+    );
+    $('.player-1-panel > .player__1---img').classList.toggle(
+      'active'
+    );
   }
 }

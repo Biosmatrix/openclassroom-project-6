@@ -10,18 +10,22 @@ export default class Player {
     this.fightingOption = null;
   }
 
+  // save player position
   savePosition() {
     this.previousPosition = { x: this.x, y: this.y };
   }
 
+  // save player weapon
   saveWeapon() {
     this.previousWeapon = this.currentWeapon;
   }
 
+  // updates player weapon
   updateWeapon() {
     this.previousWeapon = null;
   }
 
+  // updates player position
   updatePosition(position) {
     this.x = position.x;
     this.y = position.y;
